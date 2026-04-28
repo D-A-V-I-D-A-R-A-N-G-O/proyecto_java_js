@@ -11,7 +11,7 @@ import java.util.Optional;
 
 @Service
 public class usuarioService {
-    private usuarioRepositories usuarioRepo;
+    private final usuarioRepositories usuarioRepo;
     @Autowired
 
     public usuarioService(usuarioService usuarioRepo){
@@ -33,6 +33,9 @@ public class usuarioService {
 
     Optional<usuario> buscarPorId(Long id){
         return usuarioRepo.findById(id);
+    }
+    List<usuario> buscarPorNombre(String nombre){
+        return usuarioRepo.findByNombre(nombre);
     }
 
 }

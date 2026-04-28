@@ -11,7 +11,7 @@ import java.util.Optional;
 
 @Service
 public class libroService {
-    private libroRepositories libroRepo;
+    private final libroRepositories libroRepo;
     @Autowired
 
     public libroService(libroService libroRepo){
@@ -31,7 +31,7 @@ public class libroService {
         return libroRepo.findAll();
     }
 
-    Optional<libros> buscarPorId(Long id){
+    public Optional<libros> buscarPorId(Long id){
         return libroRepo.findById(id);
     }
 
