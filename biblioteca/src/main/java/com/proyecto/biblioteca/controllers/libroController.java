@@ -11,7 +11,7 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/api/libros")
 public class libroController {
-    private libroService libroService;
+    private final libroService libroService;
 
     @Autowired
 
