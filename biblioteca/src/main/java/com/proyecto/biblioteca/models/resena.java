@@ -1,30 +1,28 @@
 package com.proyecto.biblioteca.models;
 
-
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
+@Entity
+@Table(name = "resena")
 @Getter
 @Setter
+@NoArgsConstructor
 @AllArgsConstructor
-@Entity
 public class resena {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", nullable = false)
-    private long idResena;
-    @Column(name = "id_usuario", nullable = false)
-    private String idUsuario;
-    @Column(name = "id_libro", nullable = false)
-    private String idLibro;
-    @Column(name = "puntuacion", nullable = false)
-    private String puntuacion;
-    @Column(name = "resena", nullable = false)
-    private String resena;
+    private Long idResena;
 
-    public resena() {
+    @ManyToOne
+    @JoinColumn(name = "id_usuario", nullable = false)
+    private usuario usuario;
 
-    }
+    @ManyToOne
+    @JoinColumn(name = "id_libro", nullable = false)
+    private libros libro;
+
+    private int puntuacion;
+    private String comentario;
 }

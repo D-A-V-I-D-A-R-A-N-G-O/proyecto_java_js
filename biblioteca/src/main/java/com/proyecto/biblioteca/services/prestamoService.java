@@ -9,44 +9,17 @@ import java.util.List;
 @Service
 public class prestamoService {
 
-    private final prestamoRepositories prestamoRepo;
+    private final prestamoRepositories repo;
 
-    public prestamoService(prestamoRepositories prestamoRepo) {
-        this.prestamoRepo = prestamoRepo;
+    public prestamoService(prestamoRepositories repo) {
+        this.repo = repo;
     }
 
-    // Crear préstamo
-    public prestamo crearPrestamo(prestamo prestamo) {
-        return prestamoRepo.save(prestamo);
+    public List<prestamo> listar() {
+        return repo.findAll();
     }
 
-    // Actualizar préstamo
-    public prestamo actualizarPrestamo(prestamo prestamo) {
-        return prestamoRepo.save(prestamo);
-    }
-
-    // Eliminar préstamo
-    public void eliminarPrestamo(Long id) {
-        prestamoRepo.deleteById(id);
-    }
-
-    // Listar todos
-    public List<prestamo> listarPrestamos() {
-        return prestamoRepo.findAll();
-    }
-
-    // Buscar por ID
-    public prestamo obtenerPorId(Long id) {
-        return prestamoRepo.findById(id).orElse(null);
-    }
-
-    // Buscar por libro
-    public List<prestamo> obtenerPorLibro(Long idLibro) {
-        return prestamoRepo.findByIdLibro(idLibro);
-    }
-
-    // Buscar por usuario
-    public List<prestamo> obtenerPorUsuario(Long idUsuario) {
-        return prestamoRepo.findByIdUsuario(idUsuario);
+    public prestamo guardar(prestamo p) {
+        return repo.save(p);
     }
 }

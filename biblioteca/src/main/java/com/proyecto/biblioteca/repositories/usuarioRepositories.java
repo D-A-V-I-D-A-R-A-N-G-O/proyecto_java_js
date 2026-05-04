@@ -2,11 +2,9 @@ package com.proyecto.biblioteca.repositories;
 
 import com.proyecto.biblioteca.models.usuario;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
+import java.util.Optional;
 
-import java.util.List;
-
-@Repository
 public interface usuarioRepositories extends JpaRepository<usuario, Long> {
-    List<usuario> findByNombre(String nombre);
+
+    Optional<usuario> findByNombre(String nombre);
 }

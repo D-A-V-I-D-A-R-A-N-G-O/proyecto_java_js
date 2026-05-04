@@ -2,40 +2,24 @@ package com.proyecto.biblioteca.services;
 
 import com.proyecto.biblioteca.models.usuario;
 import com.proyecto.biblioteca.repositories.usuarioRepositories;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
-
 
 @Service
 public class usuarioService {
-    private final usuarioRepositories usuarioRepo;
-    @Autowired
 
-    public usuarioService(usuarioService usuarioRepo){
-        this.usuarioRepo = (usuarioRepositories) usuarioRepo;
-    }
+    private final usuarioRepositories repo;
 
-    public void crearUsuario(usuario usuario){usuarioRepo.save(usuario);
-    }
-    public void actualizarUsuario(usuario libro){
-        usuarioRepo.save(libro);
+    public usuarioService(usuarioRepositories repo) {
+        this.repo = repo;
     }
 
-    public void eliminarUsuario(Long id){
-        usuarioRepo.deleteById(id);
-    }
-    public List<usuario> listarUsuario(){
-        return usuarioRepo.findAll();
+    public List<usuario> listar() {
+        return repo.findAll();
     }
 
-    Optional<usuario> buscarPorId(Long id){
-        return usuarioRepo.findById(id);
+    public usuario guardar(usuario user) {
+        return repo.save(user);
     }
-    List<usuario> buscarPorNombre(String nombre){
-        return usuarioRepo.findByNombre(nombre);
-    }
-
 }
