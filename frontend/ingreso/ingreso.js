@@ -4,7 +4,7 @@ async function login() {
     const contrasena = document.getElementById("contrasena").value;
 
     const respuesta = await fetch(
-        "http://localhost:8080/auth/login",
+        "http://192.168.1.19:8080/auth/login",
         {
             method: "POST",
 
@@ -30,7 +30,11 @@ async function login() {
             JSON.stringify(usuario)
         );
 
-        window.location.href = "index.html";
+        if (usuario.rol ===  "ADMIN"){
+            window.location.href = "../administrador/html/index.html"
+        } else{
+            window.location.href = "../usuario/html/index.html"
+        }
 
     } else {
 

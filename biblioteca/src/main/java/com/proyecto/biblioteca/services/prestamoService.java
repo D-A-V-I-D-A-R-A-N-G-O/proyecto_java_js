@@ -5,7 +5,6 @@ import com.proyecto.biblioteca.repositories.prestamoRepositories;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class prestamoService {
@@ -23,6 +22,7 @@ public class prestamoService {
     public prestamo guardar(prestamo p) {
         return repo.save(p);
     }
+
     public List<prestamo> obtenerPorUsuario(Long id){
         return repo.findByUsuario_IdUsuario(id);
     }

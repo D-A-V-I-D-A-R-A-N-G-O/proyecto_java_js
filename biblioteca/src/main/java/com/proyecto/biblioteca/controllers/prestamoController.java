@@ -6,7 +6,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/prestamos")
@@ -29,8 +28,13 @@ public class prestamoController {
     }
 
     @GetMapping("/buscarPorUsuario/{id}")
-    public ResponseEntity<Optional<prestamo>> obtenerLibro(@PathVariable Long id) {
-        List<prestamo> prestamo = service.obtenerPorUsuario(id);
-        return ResponseEntity.ok(prestamo);
+    public ResponseEntity<List<prestamo>> buscarPorUsuario(@PathVariable Long id) {
+        List<prestamo> libros = service.obtenerPorUsuario(id);
+        return ResponseEntity.ok(libros);
+    }
+    @GetMapping("/buscarPorLibro/{id}")
+    public ResponseEntity<List<prestamo>> buscarPorLibro(@PathVariable Long id) {
+        List<prestamo> libros = service.obtenerPorLibro(id);
+        return ResponseEntity.ok(libros);
     }
 }
