@@ -1,45 +1,52 @@
-async function login() {
+async function login(event) {
+    event.preventDefault();
 
     const nombre = document.getElementById("nombre").value;
     const contrasena = document.getElementById("contrasena").value;
+    const mensajeDiv = document.getElementById("mensaje");
 
-    const respuesta = await fetch(
-        "http://192.168.1.19:8080/auth/login",
-        {
-            method: "POST",
+    if (!nombre || !contrasena) {
+        mensajeDiv.textContent = "Por favor complete todos los campos";
+        mensajeDiv.classList.remove("d-none");
+        return;
+    }
 
-            headers: {
-                "Content-Type": "application/json"
-            },
-
-            body: JSON.stringify({
-                nombre: nombre,
-                contrasena: contrasena
-            })
-        }
-    );
-
-    const mensaje = document.getElementById("mensaje");
-
-    if (respuesta.ok) {
-
-        const usuario = await respuesta.json();
-
-        localStorage.setItem(
-            "usuario",
-            JSON.stringify(usuario)
+    try {
+        const respuesta = await fetch(
+            "http://localhost:8080/auth/login",
+            {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    nombre: nombre,
+                    contrasena: contrasena
+                })
+            }
         );
 
-        if (usuario.rol ===  "ADMIN"){
-            window.location.href = "../administrador/html/index.html"
-        } else{
-            window.location.href = "../usuario/html/index.html"
+        if (respuesta.ok) {
+            const usuario = await respuesta.json();
+
+            localStorage.setItem(
+                "usuario",
+                JSON.stringify(usuario)
+            );
+
+            if (usuario.rol === "ADMIN") {
+                window.location.href = "../administrador/html/index.html"
+            } else {
+                window.location.href = "../usuario/html/index.html"
+            }
+
+        } else {
+            const error = await respuesta.text();
+            mensajeDiv.textContent = error || "Error al iniciar sesión";
+            mensajeDiv.classList.remove("d-none");
         }
-
-    } else {
-
-        const error = await respuesta.text();
-
-        mensaje.innerText = error;
+    } catch (err) {
+        mensajeDiv.textContent = "Error de conexión: " + err.message;
+        mensajeDiv.classList.remove("d-none");
     }
 }

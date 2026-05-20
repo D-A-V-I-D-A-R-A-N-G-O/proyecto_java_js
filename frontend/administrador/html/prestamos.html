@@ -25,12 +25,42 @@
           <a class="nav-link" href="usuarios.html">Usuarios</a>
         </li>
       </ul>
-      <span id="nombre"  class="navbar-text">
+      <span id="nombre"  class="navbar-text me-3">
         
       </span>
+      <button class="btn btn-outline-danger btn-sm" onclick="logout()">
+        Salir
+      </button>
     </div>
   </div>
 </nav>
+
+<div class="container mt-5">
+    <h1 class="mb-4">Administración de Préstamos</h1>
+
+    <div class="alert alert-info">
+        <p><strong>Funcionalidad de Préstamos</strong></p>
+        <p>En esta sección puedes administrar los préstamos de libros a usuarios.</p>
+    </div>
+
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>ID Préstamo</th>
+                <th>Usuario</th>
+                <th>Libro</th>
+                <th>Fecha Préstamo</th>
+                <th>Fecha Devolución</th>
+                <th>Estado</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody id="tablaPrestamos">
+        </tbody>
+    </table>
+</div>
+
+<script src="../js/admin_prestamos.js"></script>
 
 </body>
 <script src="../js/verificacion.js"></script>

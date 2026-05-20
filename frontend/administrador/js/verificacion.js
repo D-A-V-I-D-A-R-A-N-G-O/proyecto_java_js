@@ -1,15 +1,17 @@
-async function nombre() {
+async function displayUserName() {
     const usuario = JSON.parse(localStorage.getItem("usuario"));
-    
-    nombre = document.getElementById("nombre")
+    const nombreSpan = document.getElementById("nombre");
     
     if (!usuario) {
-
-    window.location.href = "../../ingreso/ingreso.html";
-
-    } else{
-        nombre.innerText = "Hola " + usuario.nombre 
+        window.location.href = "../../ingreso/ingreso.html";
+    } else {
+        nombreSpan.innerText = "Hola, " + usuario.nombre;
     }
 }
 
-window.onload = nombre()
+function logout() {
+    localStorage.removeItem("usuario");
+    window.location.href = "../../ingreso/ingreso.html";
+}
+
+window.onload = displayUserName();

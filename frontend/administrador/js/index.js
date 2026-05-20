@@ -1,15 +1,13 @@
 async function nombre() {
     const usuario = JSON.parse(localStorage.getItem("usuario"));
     
-    nombre = document.getElementById("bienvenido")
+    const nombreSpan = document.getElementById("nombre");
     
     if (!usuario) {
-
-    window.location.href = "../../ingreso/ingreso.html";
-
-    } else{
-        nombre.innerText = "Hola " + usuario.nombre + " bienvenido al sistema de biblioteca de prueba"
+        window.location.href = "../../ingreso/ingreso.html";
+    } else {
+        nombreSpan.innerText = "Hola " + usuario.nombre;
     }
 }
 
-window.onload = nombre()
+window.onload = nombre();
