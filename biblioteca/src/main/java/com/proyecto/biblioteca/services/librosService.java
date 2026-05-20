@@ -10,23 +10,58 @@ import java.util.Optional;
 @Service
 public class librosService {
 
-    private final librosRepositories repo;
+    private final librosRepositories repository;
 
-    public librosService(librosRepositories repo) {
-        this.repo = repo;
+    public librosService(librosRepositories repository) {
+        this.repository = repository;
     }
 
     public List<libros> listar() {
-        return repo.findAll();
-    }
-    public Optional<libros> obtenerPorId(Long id) {
-        return repo.findById(id);
-    }
-    public List<libros> obtenerPorTitulo(String titulo){
-        return repo.findByTituloContainingIgnoreCase(titulo);
-    }
-    public libros guardar(libros libro) {
-        return repo.save(libro);
+        return repository.findAll();
     }
 
+    public Optional<libros> obtenerPorId(Long id) {
+        return repository.findById(id);
+    }
+
+    public List<libros> obtenerPorTitulo(String titulo) {
+        return repository.findByTituloContainingIgnoreCase(titulo);
+    }
+
+    public libros guardar(libros libro) {
+        return repository.save(libro);
+    }
+
+    public libros actualizar(Long id, libros libroActualizado) {
+
+        Optional<libros> libroExistente = repository.findById(id);
+
+        if(libroExistente.isPresent()) {
+
+            libros libro = libroExistente.get();
+
+            libro.setTitulo(libroActualizado.getTitulo());
+            libro.setAutor(libroActualizado.getAutor());
+            libro.setSinopsis(libroActualizado.getSinopsis());
+            libro.setEstado(libroActualizado.isEstado());
+
+            return repository.save(libro);
+        }
+
+        return null;
+    }
+
+    public boolean eliminar(Long id) {
+
+        Optional<libros> libro = repository.findById(id);
+
+        if(libro.isPresent()) {
+
+            repository.deleteById(id);
+
+            return true;
+        }
+
+        return false;
+    }
 }

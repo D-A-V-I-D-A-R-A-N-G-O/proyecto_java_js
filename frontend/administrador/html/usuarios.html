@@ -22,7 +22,7 @@
           <a class="nav-link " href="prestamos.html">Prestamos</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link active bg-black text-white rounded-5" href="usuarios.html">Usuarios</a>
+          <a class="nav-link active" href="usuarios.html">Usuarios</a>
         </li>
       </ul>
       <span id="nombre"  class="navbar-text">
@@ -31,6 +31,88 @@
     </div>
   </div>
 </nav>
+<div class="container mt-5">
+
+    <h1 class="mb-4">
+        Administración de Usuarios
+    </h1>
+
+    <div class="card p-4 mb-5">
+
+        <input type="hidden" id="idUsuario">
+
+        <div class="mb-3">
+            <label>Nombre</label>
+
+            <input type="text"
+                   id="nombre"
+                   class="form-control">
+        </div>
+
+        <div class="mb-3">
+            <label>Contraseña</label>
+
+            <input type="password"
+                   id="contrasena"
+                   class="form-control">
+        </div>
+
+        <div class="mb-3">
+            <label>Celular</label>
+
+            <input type="text"
+                   id="celular"
+                   class="form-control">
+        </div>
+
+        <div class="mb-3">
+            <label>Rol</label>
+
+            <select id="rol"
+                    class="form-control">
+
+                <option value="ADMIN">
+                    ADMIN
+                </option>
+
+                <option value="USER">
+                    USER
+                </option>
+
+            </select>
+        </div>
+
+        <button class="btn btn-success"
+                onclick="guardarUsuario()">
+
+            Guardar Usuario
+        </button>
+
+    </div>
+
+    <table class="table table-bordered">
+
+        <thead>
+
+        <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Celular</th>
+            <th>Rol</th>
+            <th>Acciones</th>
+        </tr>
+
+        </thead>
+
+        <tbody id="tablaUsuarios">
+
+        </tbody>
+
+    </table>
+
+</div>
+
+<script src="../js/admin_usuarios.js"></script>
 
 </body>
 <script src="../js/verificacion.js"></script>

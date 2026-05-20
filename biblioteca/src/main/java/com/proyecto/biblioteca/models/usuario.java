@@ -1,22 +1,35 @@
 package com.proyecto.biblioteca.models;
 
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
 
-@Entity
-@Table(name = "usuario")
 @Getter
 @Setter
-@NoArgsConstructor
 @AllArgsConstructor
+@Entity
+@Table(name = "usuario")
 public class usuario {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long idUsuario;
+    @Column(name = "id", nullable = false)
+    private long idUsuario;
 
+    @Column(name = "nombre", nullable = false)
     private String nombre;
+
+    @Column(name = "contrasena", nullable = false)
     private String contrasena;
+
+    @Column(name = "celular", nullable = false)
     private String celular;
+
+    @Column(name = "rol", nullable = false)
     private String rol;
+
+    public usuario() {
+
+    }
 }
