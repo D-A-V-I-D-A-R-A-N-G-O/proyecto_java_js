@@ -7,10 +7,12 @@ import org.springframework.stereotype.Repository;
 import java.util.Optional;
 
 @Repository
-public interface usuarioRepositories extends JpaRepository<usuario, Long> {
+public interface usuarioRepositories
+        extends JpaRepository<usuario, Long> {
 
     Optional<usuario> findByNombreAndContrasena(
             String nombre,
             String contrasena
     );
+    
 }

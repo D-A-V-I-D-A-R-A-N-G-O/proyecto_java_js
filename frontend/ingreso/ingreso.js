@@ -4,7 +4,7 @@ async function login() {
     const contrasena = document.getElementById("contrasena").value;
 
     const respuesta = await fetch(
-        "http://192.168.1.19:8080/auth/login",
+        "http://localhost:8080/auth/login",
         {
             method: "POST",
 

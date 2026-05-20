@@ -15,31 +15,37 @@ public class loginController {
 
     private final usuarioRepositories usuarioRepository;
 
-    public loginController(usuarioRepositories usuarioRepository) {
+    public loginController(
+            usuarioRepositories usuarioRepository
+    ) {
         this.usuarioRepository = usuarioRepository;
     }
 
     @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestBody Map<String, String> datos) {
+    public ResponseEntity<?> login(
+            @RequestBody Map<String, String> datos
+    ) {
 
         String nombre = datos.get("nombre");
         String contrasena = datos.get("contrasena");
 
         Optional<usuario> usuarioOptional =
-                usuarioRepository.findByNombre(nombre);
 
-        if (usuarioOptional.isEmpty()) {
-            return ResponseEntity.badRequest()
-                    .body("Usuario no encontrado");
+                usuarioRepository
+                        .findByNombreAndContrasena(
+                                nombre,
+                                contrasena
+                        );
+
+        if(usuarioOptional.isEmpty()){
+
+            return ResponseEntity
+                    .badRequest()
+                    .body("Credenciales incorrectas");
         }
 
-        usuario usuario = usuarioOptional.get();
-
-        if (!usuario.getContrasena().equals(contrasena)) {
-            return ResponseEntity.badRequest()
-                    .body("Contraseña incorrecta");
-        }
-
-        return ResponseEntity.ok(usuario);
+        return ResponseEntity.ok(
+                usuarioOptional.get()
+        );
     }
 }
