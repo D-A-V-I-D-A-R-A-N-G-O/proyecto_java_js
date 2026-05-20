@@ -1,30 +1,52 @@
 package com.proyecto.biblioteca.models;
 
 import jakarta.persistence.*;
-import lombok.*;
-
-import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "prestamo")
-@Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
 public class prestamo {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
-    @JoinColumn(name = "id_libro", nullable = false)
-    private libros libro;
+    private Long idLibro;
 
-    @ManyToOne
-    @JoinColumn(name = "id_usuario", nullable = false)
-    private usuario usuario;
+    private Long idUsuario;
 
-    private LocalDateTime fechaPrestamo;
-    private LocalDateTime fechaDevolucion;
+    private boolean activo;
+
+    public prestamo() {
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Long getIdLibro() {
+        return idLibro;
+    }
+
+    public void setIdLibro(Long idLibro) {
+        this.idLibro = idLibro;
+    }
+
+    public Long getIdUsuario() {
+        return idUsuario;
+    }
+
+    public void setIdUsuario(Long idUsuario) {
+        this.idUsuario = idUsuario;
+    }
+
+    public boolean isActivo() {
+        return activo;
+    }
+
+    public void setActivo(boolean activo) {
+        this.activo = activo;
+    }
 }
