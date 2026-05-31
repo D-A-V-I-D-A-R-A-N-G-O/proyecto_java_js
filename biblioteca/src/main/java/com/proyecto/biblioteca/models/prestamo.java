@@ -2,7 +2,6 @@ package com.proyecto.biblioteca.models;
 
 import jakarta.persistence.*;
 import lombok.*;
-
 import java.time.LocalDateTime;
 
 @Entity
@@ -11,20 +10,27 @@ import java.time.LocalDateTime;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class prestamo {
+@ToString(exclude = {"libro", "usuario"})
+@EqualsAndHashCode(exclude = {"libro", "usuario"})
+public class Prestamo {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_libro", nullable = false)
-    private libros libro;
+    private Libro libro;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_usuario", nullable = false)
-    private usuario usuario;
+    private Usuario usuario;
 
-    private LocalDateTime fechaPrestamo;
+    @Column(nullable = false)
+    private LocalDateTime fechaPrestamo = LocalDateTime.now();
+
     private LocalDateTime fechaDevolucion;
+
+    @Column(name = "fecha_creacion", nullable = false)
+    private LocalDateTime fechaCreacion = LocalDateTime.now();
 }

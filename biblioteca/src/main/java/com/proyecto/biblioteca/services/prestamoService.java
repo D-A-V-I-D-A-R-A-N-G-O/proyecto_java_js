@@ -1,32 +1,39 @@
 package com.proyecto.biblioteca.services;
 
-import com.proyecto.biblioteca.models.prestamo;
-import com.proyecto.biblioteca.repositories.prestamoRepositories;
+import com.proyecto.biblioteca.models.Prestamo;
+import com.proyecto.biblioteca.repositories.PrestamoRepository;
 import org.springframework.stereotype.Service;
-
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
-public class prestamoService {
+public class PrestamoService {
 
-    private final prestamoRepositories repo;
+    private final PrestamoRepository repository;
 
-    public prestamoService(prestamoRepositories repo) {
-        this.repo = repo;
+    public PrestamoService(PrestamoRepository repository) {
+        this.repository = repository;
     }
 
-    public List<prestamo> listar() {
-        return repo.findAll();
+    public List<Prestamo> listar() {
+        return repository.findAll();
     }
 
-    public prestamo guardar(prestamo p) {
-        return repo.save(p);
+    public Prestamo guardar(Prestamo prestamo) {
+        prestamo.setFechaCreacion(LocalDateTime.now());
+        prestamo.setFechaPrestamo(LocalDateTime.now());
+        return repository.save(prestamo);
     }
 
-    public List<prestamo> obtenerPorUsuario(Long id){
-        return repo.findByUsuario_IdUsuario(id);
+    public List<Prestamo> obtenerPorUsuario(Long usuarioId) {
+        return repository.findByUsuarioId(usuarioId);
     }
-    public List<prestamo> obtenerPorLibro(Long id){
-        return repo.findByLibro_IdLibro(id);
+
+    public List<Prestamo> obtenerPorLibro(Long libroId) {
+        return repository.findByLibroId(libroId);
+    }
+
+    public List<Prestamo> obtenerPrestamosActivos() {
+        return repository.findByFechaDevolucionIsNull();
     }
 }

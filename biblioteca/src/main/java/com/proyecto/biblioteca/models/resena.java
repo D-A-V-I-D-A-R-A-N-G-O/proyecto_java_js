@@ -1,7 +1,9 @@
 package com.proyecto.biblioteca.models;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.*;
 import lombok.*;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "resena")
@@ -9,20 +11,34 @@ import lombok.*;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class resena {
+@ToString(exclude = {"usuario", "libro"})
+@EqualsAndHashCode(exclude = {"usuario", "libro"})
+public class Resena {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long idResena;
+    private Long id;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_usuario", nullable = false)
-    private usuario usuario;
+    private Usuario usuario;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_libro", nullable = false)
-    private libros libro;
+    private Libro libro;
 
-    private int puntuacion;
+    @NotNull(message = "La puntuación es requerida")
+    @Min(1)
+    @Max(5)
+    @Column(nullable = false)
+    private Integer puntuacion;
+
+    @Size(max = 1000)
     private String comentario;
+
+    @Column(name = "fecha_creacion", nullable = false)
+    private LocalDateTime fechaCreacion = LocalDateTime.now();
+
+    @Column(name = "fecha_actualizacion")
+    private LocalDateTime fechaActualizacion;
 }

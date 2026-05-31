@@ -6,42 +6,34 @@ import lombok.*;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "usuario")
+@Table(name = "libro")
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString(exclude = {"prestamos", "resenas"})
 @EqualsAndHashCode(exclude = {"prestamos", "resenas"})
-public class Usuario {
+public class Libro {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotBlank(message = "El nombre es requerido")
+    @NotBlank(message = "El título es requerido")
+    @Size(min = 2, max = 255)
+    @Column(nullable = false)
+    private String titulo;
+
+    @NotBlank(message = "El autor es requerido")
     @Size(min = 2, max = 100)
     @Column(nullable = false)
-    private String nombre;
+    private String autor;
 
-    @NotBlank(message = "La contraseña es requerida")
-    @Size(min = 6)
+    @Size(max = 1000)
+    private String sinopsis;
+
     @Column(nullable = false)
-    private String contrasena;
-
-    @NotBlank(message = "El correo es requerido")
-    @Email
-    @Column(nullable = false, unique = true)
-    private String email;
-
-    @NotBlank(message = "El celular es requerido")
-    @Pattern(regexp = "\\d+", message = "El celular debe contener solo números")
-    @Column(nullable = false)
-    private String celular;
-
-    @NotBlank(message = "El rol es requerido")
-    @Column(nullable = false)
-    private String rol;
+    private boolean estado = true;
 
     @Column(name = "fecha_creacion", nullable = false)
     private LocalDateTime fechaCreacion = LocalDateTime.now();

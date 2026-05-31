@@ -1,40 +1,47 @@
 package com.proyecto.biblioteca.controllers;
 
-import com.proyecto.biblioteca.services.prestamoService;
-import com.proyecto.biblioteca.models.prestamo;
+import com.proyecto.biblioteca.models.Prestamo;
+import com.proyecto.biblioteca.services.PrestamoService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/prestamos")
-public class prestamoController {
+@RequestMapping("/api/prestamos")
+public class PrestamoController {
 
-    private final prestamoService service;
+    private final PrestamoService service;
 
-    public prestamoController(prestamoService service) {
+    public PrestamoController(PrestamoService service) {
         this.service = service;
     }
 
     @GetMapping
-    public List<prestamo> listar() {
+    public List<Prestamo> listar() {
         return service.listar();
     }
 
     @PostMapping
-    public prestamo guardar(@RequestBody prestamo p) {
-        return service.guardar(p);
+    public ResponseEntity<Prestamo> guardar(@RequestBody Prestamo prestamo) {
+        return ResponseEntity.ok(service.guardar(prestamo));
     }
 
-    @GetMapping("/buscarPorUsuario/{id}")
-    public ResponseEntity<List<prestamo>> buscarPorUsuario(@PathVariable Long id) {
-        List<prestamo> libros = service.obtenerPorUsuario(id);
-        return ResponseEntity.ok(libros);
+    @GetMapping("/usuario/{id}")
+    public ResponseEntity<List<Prestamo>> obtenerPorUsuario(@PathVariable Long id) {
+        List<Prestamo> prestamos = service.obtenerPorUsuario(id);
+        return ResponseEntity.ok(prestamos);
     }
-    @GetMapping("/buscarPorLibro/{id}")
-    public ResponseEntity<List<prestamo>> buscarPorLibro(@PathVariable Long id) {
-        List<prestamo> libros = service.obtenerPorLibro(id);
-        return ResponseEntity.ok(libros);
+
+    @GetMapping("/libro/{id}")
+    public ResponseEntity<List<Prestamo>> obtenerPorLibro(@PathVariable Long id) {
+        List<Prestamo> prestamos = service.obtenerPorLibro(id);
+        return ResponseEntity.ok(prestamos);
+    }
+
+    @GetMapping("/activos")
+    public ResponseEntity<List<Prestamo>> obtenerActivos() {
+        List<Prestamo> prestamos = service.obtenerPrestamosActivos();
+        return ResponseEntity.ok(prestamos);
     }
 }

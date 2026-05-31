@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Biblioteca</title>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar-content">
+            <div class="navbar-brand">
+                <h2>📚 Biblioteca</h2>
+            </div>
+            <ul class="navbar-menu">
+                <li><a href="#" data-section="dashboard">Dashboard</a></li>
+                <li><a href="#" data-section="libros">Libros</a></li>
+                <li><a href="#" data-section="prestamos">Mis Préstamos</a></li>
+                <li><a href="#" data-section="resenas">Mis Reseñas</a></li>
+                <li><a href="#" id="logoutBtn">Cerrar Sesión</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container">
+        <!-- Dashboard -->
+        <section id="dashboard" class="section active">
+            <h1>Bienvenido</h1>
+            <div class="dashboard-grid">
+                <div class="card">
+                    <h3>📖 Total de Libros</h3>
+                    <p id="totalLibros" class="big-number">-</p>
+                </div>
+                <div class="card">
+                    <h3>📤 Préstamos Activos</h3>
+                    <p id="prestamosActivos" class="big-number">-</p>
+                </div>
+                <div class="card">
+                    <h3>⭐ Mis Reseñas</h3>
+                    <p id="misResenas" class="big-number">-</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Libros -->
+        <section id="libros" class="section">
+            <div class="section-header">
+                <h1>Catálogo de Libros</h1>
+                <input
+                    type="text"
+                    id="searchLibros"
+                    placeholder="Buscar por título o autor..."
+                    class="search-input"
+                >
+            </div>
+            <div id="librosContainer" class="table-container">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Título</th>
+                            <th>Autor</th>
+                            <th>Sinopsis</th>
+                            <th>Estado</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody id="librosTableBody">
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Préstamos -->
+        <section id="prestamos" class="section">
+            <h1>Mis Préstamos</h1>
+            <div id="prestamosContainer" class="table-container">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Libro</th>
+                            <th>Autor</th>
+                            <th>Fecha Préstamo</th>
+                            <th>Fecha Devolución</th>
+                            <th>Estado</th>
+                        </tr>
+                    </thead>
+                    <tbody id="prestamosTableBody">
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Reseñas -->
+        <section id="resenas" class="section">
+            <div class="section-header">
+                <h1>Mis Reseñas</h1>
+                <button id="btnAddResena" class="btn-primary">+ Nueva Reseña</button>
+            </div>
+            <div id="resenasContainer" class="table-container">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Libro</th>
+                            <th>Puntuación</th>
+                            <th>Comentario</th>
+                            <th>Fecha</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody id="resenasTableBody">
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </div>
+
+    <!-- Modal para nueva reseña -->
+    <div id="resenaModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Nueva Reseña</h2>
+            <form id="resenaForm" class="form">
+                <div class="form-group">
+                    <label for="resenaLibro">Libro:</label>
+                    <select id="resenaLibro" required>
+                        <option value="">Selecciona un libro</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="resenaPuntuacion">Puntuación:</label>
+                    <select id="resenaPuntuacion" required>
+                        <option value="">Selecciona una puntuación</option>
+                        <option value="1">⭐ 1 - Muy malo</option>
+                        <option value="2">⭐⭐ 2 - Malo</option>
+                        <option value="3">⭐⭐⭐ 3 - Regular</option>
+                        <option value="4">⭐⭐⭐⭐ 4 - Bueno</option>
+                        <option value="5">⭐⭐⭐⭐⭐ 5 - Excelente</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="resenaComentario">Comentario:</label>
+                    <textarea id="resenaComentario" rows="4" placeholder="Cuéntanos qué te pareció..."></textarea>
+                </div>
+                <button type="submit" class="btn-primary">Guardar Reseña</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal para préstamo -->
+    <div id="prestamoModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Nuevo Préstamo</h2>
+            <p id="modalLibroInfo"></p>
+            <p>¿Deseas solicitar este préstamo?</p>
+            <button id="confirmarPrestamo" class="btn-primary">Confirmar</button>
+            <button class="btn-secondary" onclick="document.getElementById('prestamoModal').style.display='none'">Cancelar</button>
+        </div>
+    </div>
+
+    <div id="message" class="message"></div>
+
+    <script src="../js/index.js"></script>
+</body>
+</html>
