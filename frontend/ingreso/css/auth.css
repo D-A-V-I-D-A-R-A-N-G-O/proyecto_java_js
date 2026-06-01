@@ -1,0 +1,86 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --primary: #0d6efd;
+    --secondary: #6c757d;
+    --success: #198754;
+    --danger: #dc3545;
+    --warning: #ffc107;
+    --info: #0dcaf0;
+    --light: #f8f9fa;
+    --dark: #212529;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+}
+
+.bg-gradient {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.fw-600 {
+    font-weight: 600;
+}
+
+.card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2) !important;
+}
+
+.input-group-text {
+    color: #667eea;
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border: none;
+    transition: all 0.3s ease;
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
+}
+
+.btn-primary:focus {
+    box-shadow: 0 0 0 0.25rem rgba(102, 126, 234, 0.25);
+}
+
+.form-control:focus {
+    border-color: #667eea;
+    box-shadow: 0 0 0 0.25rem rgba(102, 126, 234, 0.25);
+}
+
+.alert {
+    border: none;
+    border-left: 4px solid;
+}
+
+.alert-success {
+    border-left-color: #198754;
+    background-color: #d1e7dd;
+    color: #0f5132;
+}
+
+.alert-danger {
+    border-left-color: #dc3545;
+    background-color: #f8d7da;
+    color: #842029;
+}
+
+.alert-warning {
+    border-left-color: #ffc107;
+    background-color: #fff3cd;
+    color: #664d03;
+}
