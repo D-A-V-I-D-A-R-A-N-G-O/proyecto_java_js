@@ -5,7 +5,9 @@ import com.proyecto.biblioteca.services.PrestamoService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/prestamos")
@@ -23,8 +25,15 @@ public class PrestamoController {
     }
 
     @PostMapping
-    public ResponseEntity<Prestamo> guardar(@RequestBody Prestamo prestamo) {
-        return ResponseEntity.ok(service.guardar(prestamo));
+    public ResponseEntity<?> guardar(@RequestBody Prestamo prestamo) {
+        try {
+            Prestamo prestamoGuardado = service.guardar(prestamo);
+            return ResponseEntity.ok(prestamoGuardado);
+        } catch (RuntimeException e) {
+            Map<String, String> error = new HashMap<>();
+            error.put("error", e.getMessage());
+            return ResponseEntity.badRequest().body(error);
+        }
     }
 
     @GetMapping("/usuario/{id}")
@@ -43,5 +52,19 @@ public class PrestamoController {
     public ResponseEntity<List<Prestamo>> obtenerActivos() {
         List<Prestamo> prestamos = service.obtenerPrestamosActivos();
         return ResponseEntity.ok(prestamos);
+    }
+
+    @PutMapping("/{id}/devolver")
+    public ResponseEntity<?> marcarComoDevuelto(@PathVariable Long id) {
+        try {
+            service.marcarComoDevuelto(id);
+            Map<String, String> respuesta = new HashMap<>();
+            respuesta.put("mensaje", "Préstamo marcado como devuelto");
+            return ResponseEntity.ok(respuesta);
+        } catch (RuntimeException e) {
+            Map<String, String> error = new HashMap<>();
+            error.put("error", e.getMessage());
+            return ResponseEntity.badRequest().body(error);
+        }
     }
 }

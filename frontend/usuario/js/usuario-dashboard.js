@@ -289,7 +289,9 @@ async function confirmarPrestamo() {
             bootstrap.Modal.getInstance(document.getElementById('prestamoModal')).hide();
             await Promise.all([cargarDashboard(), cargarPrestamos(), cargarLibros()]);
         } else {
-            mostrarAlerta('Error al solicitar préstamo', 'danger');
+            const errorData = await response.json();
+            const mensajeError = errorData.error || 'Error al solicitar préstamo';
+            mostrarAlerta(mensajeError, 'danger');
         }
     } catch (error) {
         mostrarAlerta('Error de conexión', 'danger');

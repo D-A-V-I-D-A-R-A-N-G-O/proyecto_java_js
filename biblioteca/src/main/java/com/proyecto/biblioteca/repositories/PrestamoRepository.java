@@ -11,4 +11,7 @@ public interface PrestamoRepository extends JpaRepository<Prestamo, Long> {
     List<Prestamo> findByLibroId(Long libroId);
 
     List<Prestamo> findByFechaDevolucionIsNull();
+
+    // Buscar préstamos activos (sin devolución) de un libro específico
+    List<Prestamo> findByLibroIdAndFechaDevolucionIsNull(Long libroId);
 }
